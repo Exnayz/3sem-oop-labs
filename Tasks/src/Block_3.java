@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Main_3 {
+public class Block_3 {
     public static void main (String[] args){
         System.out.println("Первое задание: \t" + solutions(1, 0, -1));
         System.out.println("Второе задание: \t" + findZip("all Zip files are zipped"));

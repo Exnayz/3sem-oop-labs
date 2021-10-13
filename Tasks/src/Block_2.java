@@ -1,9 +1,8 @@
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
-public class Main_2 {
+public class Block_2 {
     public static void main(String[] args) {
         System.out.println("Первое задание: \t" + repeat("hello", 3));
         System.out.println("Второе задание: \t" + differenceMaxMin(new int[]{10, 4, 1, 4, -10, -50, 32, 21}));

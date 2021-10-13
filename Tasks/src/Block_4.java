@@ -1,12 +1,13 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Main_4 {
+public class Block_4 {
     public static void main (String[] args){
         System.out.println("Первое задание: \t\n" + refactor(10, 7, "hello my name is Bessie and this is my essay"));
         System.out.println("Второе задание: \t" + split("((()))(())()()(()())"));
-        System.out.println("Третье задание: \t");
+        System.out.println("Третье задание 1: \t" + toCamelCase("to_camel_case"));
+        System.out.println("Третье задание 2: \t" + toSnakeCase("toSnakeCase"));
         System.out.println("Четвёртое задание:\t");
         System.out.println("Пятое задание:  \t");
         System.out.println("Шестое задание: \t");
@@ -64,5 +65,31 @@ public class Main_4 {
         return arrList.toString();
     }
 
+    /** Задание 3.1
+     * Метод перевода в camel case
+     * @param str String
+     * @return String
+     */
+    public static String toCamelCase(String str){
+        while (str.contains("_")) {
+            str = str.replaceFirst("[_].", String.valueOf(Character.toUpperCase(str.charAt(str.indexOf("_")+1))));
+        }
+        return str;
+    }
 
+    /** Задание 3.2
+     * Метод перевода в snake case
+     * @param str String
+     * @return String
+     */
+    public static String toSnakeCase(String str){
+        Pattern regex = Pattern.compile("[A-Z]");
+        Matcher matcher = regex.matcher(str);
+        for (; matcher.find(); matcher = regex.matcher(str)) {
+            str = matcher.replaceFirst("_"+String.valueOf(Character.toLowerCase(str.charAt(matcher.start()))));
+        }
+        return str;
+    }
+
+    
 }
