@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -90,6 +92,15 @@ public class Block_4 {
         }
         return str;
     }
-
-    
+/*
+    public static float overTime(int[] arr){
+        float workInTime, overWorkTime, workTime;
+        if (arr[0] > arr[1]) arr[1] += 24;
+        workTime = arr[1] - arr[0];
+        if (workTime >= 17) {
+            overWorkTime = workTime - 8;
+            workInTime = 8;
+            return 8 * arr[2] + arr[3]*overWorkTime*arr[2];
+        }
+    }*/
 }
