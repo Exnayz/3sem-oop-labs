@@ -133,7 +133,7 @@ public class Block_4 {
             subStrIndex = i + 1;
             while(subStrIndex < str.length() && (String.valueOf(str.charAt(i)).equals(String.valueOf(str.charAt(subStrIndex))))){
                 count++;
-                subStrIndex++;
+                subStrIndex++; /// 77777 g e ff
             }
             if (count > 1)
                 newStr += (str.charAt(i) + "*" + count);
@@ -174,11 +174,11 @@ public class Block_4 {
     /**
      * Задание 10.
      */
-    public static int countUniqueBooks(String str, char bookend) {
+    public static int countUniqueBooks(String str, char bookEnd) {
         HashSet set = new HashSet();
         boolean betweenBook = false;
         for (char ch : str.toCharArray()) {
-            if (ch == bookend)
+            if (ch == bookEnd)
                 betweenBook = !betweenBook;
             else
                 if (betweenBook) set.add(ch);

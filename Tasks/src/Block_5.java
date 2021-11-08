@@ -11,13 +11,12 @@ public class Block_5 {
         System.out.println("Третье задание: \t" + canComplete("blt", "brltfd"));
         System.out.println("Четвёртое задание:\t" + sumDigProd(16, 28));
         System.out.println("Пятое задание:  \t" + Arrays.toString(sameVowelGroup(new String[]{"toe", "ocelot", "maniac"})));
-        System.out.println("Шестое задание: \t" + validateCard(1234567890123452));
+        System.out.println("Шестое задание: \t" + validateCard(1234567890123452L));
         System.out.println("Седьмое задание:\t");
         System.out.println("Восьмое задание:\t");
         System.out.println("Девятое задание:\t");
         System.out.println("Десятое задание:\t");
     }
-
 
     /**
     * Задание 1
@@ -56,17 +55,17 @@ public class Block_5 {
 
         if (characterMove + digitMove == 0) return true;
         switch (figure) {
-            case "Pawn": //Пешка
+            case "Pawn": // Пешка
                 return characterMove == 0 && digitMove <= 2 && (digitCurrent == '2' || digitCurrent == '7' || digitMove != 2);
-            case "Knight": //Конь
+            case "Knight": // Конь
                 return characterMove != 0 && digitMove != 0 && characterMove + digitMove == 3;
-            case "Bishop":
+            case "Bishop": // Слон
                 return characterMove == digitMove;
-            case "Rook":
+            case "Rook": // Ладья
                 return characterMove == 0 || digitMove == 0;
-            case "Queen":
+            case "Queen": // Королева
                 return characterMove == digitMove || characterMove == 0 || digitMove == 0;
-            case "King":
+            case "King": // Король
                 return characterMove + digitMove == 1 || characterMove == digitMove && characterCurrent == 1;
             default:
                 throw new RuntimeException();
@@ -117,7 +116,6 @@ public class Block_5 {
         char[] charArr = new StringBuilder(String.valueOf(num/10)).reverse().toString().toCharArray();
         int sum = 0;
         for (int i = 0; i < charArr.length; i++) {
-            System.out.println((i % 2 == 0) ? (charArr[i] - '0') * 2 / 10 + (charArr[i] - '0') * 2 % 10 : charArr[i] - '0');
             sum += (i % 2 == 0) ? (charArr[i] - '0') * 2 / 10 + (charArr[i] - '0') * 2 % 10 : charArr[i] - '0';
         }
         return 10 - sum % 10 == num % 10;
