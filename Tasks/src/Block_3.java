@@ -14,7 +14,7 @@ public class Block_3 {
         System.out.println("Шестое задание: \t" + same(new int[]{1, 2, 3, 3, 3}, new int[]{4, 5, 8}));
         System.out.println("Седьмое задание:\t" + isKaprekar(3));
         System.out.println("Восьмое задание:\t" + longestZero("101"));
-        System.out.println("Девятое задание:\t" + nextPrime(90));
+        System.out.println("Девятое задание:\t" + nextPrime(8012));
         System.out.println("Десятое задание:\t" + rightTriangle(145, 105, 100));
     }
 
