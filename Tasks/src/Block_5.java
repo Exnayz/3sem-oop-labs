@@ -1,7 +1,10 @@
-import java.lang.reflect.Array;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Block_5 {
     public static void main (String[] args){
@@ -12,10 +15,10 @@ public class Block_5 {
         System.out.println("Четвёртое задание:\t" + sumDigProd(16, 28));
         System.out.println("Пятое задание:  \t" + Arrays.toString(sameVowelGroup(new String[]{"toe", "ocelot", "maniac"})));
         System.out.println("Шестое задание: \t" + validateCard(1234567890123452L));
-        System.out.println("Седьмое задание:\t");
-        System.out.println("Восьмое задание:\t");
-        System.out.println("Девятое задание:\t");
-        System.out.println("Десятое задание:\t");
+        System.out.println("Седьмое задание:\t" + numToEng(958));
+        System.out.println("Восьмое задание:\t" + getSha256Hash("password123"));
+        System.out.println("Девятое задание:\t" + correctTitle("jOn SnoW, kINg IN thE noRth."));
+        System.out.println("Десятое задание:\n" + hexLattice(7));
     }
 
     /**
@@ -119,5 +122,110 @@ public class Block_5 {
             sum += (i % 2 == 0) ? (charArr[i] - '0') * 2 / 10 + (charArr[i] - '0') * 2 % 10 : charArr[i] - '0';
         }
         return 10 - sum % 10 == num % 10;
+    }
+
+
+    /**
+     * Задание 7.
+     */
+    public static String numToEng(int num) {
+        final String[] NUMS = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+        final String[] TENS1 = {"ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
+        final String[] TENS2 = {"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+
+        String answer = "";
+
+        if (num == 0) return NUMS[0];
+
+        if (num >= 100) {
+            answer += NUMS[num/100] + " hundred";
+            num %= 100;
+            if (num != 0) {
+                answer += " ";
+            }
+        }
+        if (num > 19) {
+            answer += TENS2[num/10];
+            num %= 10;
+            if (num != 0) {
+                answer += " ";
+            }
+        }
+        else if (num > 9) {
+            answer += TENS1[num%10];
+            num = 0;
+        }
+        if (num > 0) {
+            answer += NUMS[num];
+        }
+        return answer;
+    }
+
+    /**
+     * Задание 8.
+     */
+    public static String getSha256Hash(String str) {
+        String result = "";
+        MessageDigest messageDigest;
+        try {
+            messageDigest = MessageDigest.getInstance("SHA-256");
+            byte[] hashes = messageDigest.digest(str.getBytes());
+            for (byte hash : hashes) {
+                String hex = Integer.toHexString(0xff & hash);
+                if (hex.length() == 1) result += 0;
+                result += hex;
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * Задние 9.
+     */
+    public static String correctTitle(String str){
+        str = str.toLowerCase().replaceFirst("^.", String.valueOf(str.charAt(0)).toUpperCase());
+        Pattern regex = Pattern.compile("(\\s[a-z])");
+        Matcher matcher = regex.matcher(str);
+        for (; matcher.find(); matcher = regex.matcher(str))
+            str = matcher.replaceFirst(" " + String.valueOf(Character.toUpperCase(str.charAt(matcher.start()+1))));
+
+        regex = Pattern.compile("(In)|(The)|(And)|(Of)");
+        matcher = regex.matcher(str);
+        for (; matcher.find(); matcher = regex.matcher(str))
+            str = matcher.replaceFirst(str.substring(matcher.start(), matcher.end()).toLowerCase());
+        return str;
+    }
+
+    /**
+     * Задание 10.
+     */
+    public static String hexLattice(int num) {
+        if (num == 1) return " o ";
+
+        int min = 2, max = 3, all = 7;
+
+        for (int i = 2; ; i++) {
+            if (all == num) break;
+            if (all > num) return "Invalid";
+            min++;
+            max += 2;
+            all += i * 6;
+        }
+
+        String answer = "";
+        for (int i = min; i < max; i++)
+            answer += draw(" ", max - i) + draw(" o", i) + "\n";
+        for (int i = max; i >= min; i--)
+            answer += draw(" ", max - i) + draw(" o", i) + (i != min ? "\n" : "");
+        return answer;
+    }
+
+    private static String draw(String str, int num) {
+        StringBuilder out = new StringBuilder();
+        while (num-- > 0)
+            out.append(str);
+        return out.toString();
     }
 }
