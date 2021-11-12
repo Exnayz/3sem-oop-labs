@@ -2,7 +2,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +14,8 @@ public class Block_5 {
         System.out.println("Четвёртое задание:\t" + sumDigProd(16, 28));
         System.out.println("Пятое задание:  \t" + Arrays.toString(sameVowelGroup(new String[]{"toe", "ocelot", "maniac"})));
         System.out.println("Шестое задание: \t" + validateCard(1234567890123452L));
-        System.out.println("Седьмое задание:\t" + numToEng(958));
+        System.out.println("Седьмое задание 1:\t" + numToEng(958));
+        System.out.println("Седьмое задание 2:\t" + numToRus(958));
         System.out.println("Восьмое задание:\t" + getSha256Hash("password123"));
         System.out.println("Девятое задание:\t" + correctTitle("jOn SnoW, kINg IN thE noRth."));
         System.out.println("Десятое задание:\n" + hexLattice(7));
@@ -126,7 +126,7 @@ public class Block_5 {
 
 
     /**
-     * Задание 7.
+     * Задание 7.1.
      */
     public static String numToEng(int num) {
         final String[] NUMS = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
@@ -139,6 +139,43 @@ public class Block_5 {
 
         if (num >= 100) {
             answer += NUMS[num/100] + " hundred";
+            num %= 100;
+            if (num != 0) {
+                answer += " ";
+            }
+        }
+        if (num > 19) {
+            answer += TENS2[num/10];
+            num %= 10;
+            if (num != 0) {
+                answer += " ";
+            }
+        }
+        else if (num > 9) {
+            answer += TENS1[num%10];
+            num = 0;
+        }
+        if (num > 0) {
+            answer += NUMS[num];
+        }
+        return answer;
+    }
+
+    /**
+     * Задание 7.2
+     */
+    public static String numToRus(int num) {
+        final String[] NUMS = {"Ноль", "Один", "Два", "Три", "Четыре", "Пять", "Шесть", "Семь", "Восемь", "Девять"};
+        final String[] TENS1 = {"Десять", "Одиннадцать", "Двенадцать", "Тринадцать", "Четырнадцать", "Пятнадцать", "Шестнадцать", "Семнадцать", "Восемнадцать", "Девятнадцать"};
+        final String[] TENS2 = {"", "", "Двадцать", "Тридцать", "Сорок", "Пятьдесят", "Шестьдесят", "Семьдесят", "Восемьдесят", "Девяносто"};
+        final String[] HUNDRED = {"", "Сто", "Двести", "Триста", "Четыреста", "Пятьсот", "Шестьсот", "Семьсот", "Восемьсот", "Девятьсот"};
+
+        String answer = "";
+
+        if (num == 0) return NUMS[0];
+
+        if (num >= 100) {
+            answer += HUNDRED[num/100];
             num %= 100;
             if (num != 0) {
                 answer += " ";
@@ -186,6 +223,7 @@ public class Block_5 {
      */
     public static String correctTitle(String str){
         str = str.toLowerCase().replaceFirst("^.", String.valueOf(str.charAt(0)).toUpperCase());
+
         Pattern regex = Pattern.compile("(\\s[a-z])");
         Matcher matcher = regex.matcher(str);
         for (; matcher.find(); matcher = regex.matcher(str))
@@ -216,7 +254,7 @@ public class Block_5 {
 
         String answer = "";
         for (int i = min; i < max; i++)
-            answer += draw(" ", max - i) + draw(" o", i) + "\n";
+             answer += draw(" ",max - i) + draw(" o", i) + "\n";
         for (int i = max; i >= min; i--)
             answer += draw(" ", max - i) + draw(" o", i) + (i != min ? "\n" : "");
         return answer;
