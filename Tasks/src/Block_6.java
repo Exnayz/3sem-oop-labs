@@ -1,22 +1,20 @@
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Block_6 {
-    public static void main (String[] args){
+    public static void main (String[] args) {
         System.out.println("Первое задание: \t" + bell(4));
         System.out.println("Второе задание 1: \t" + translateWord("have."));
-        System.out.println("Второе задание 1: \t" + translateSentence("I like to eat honey waffles."));
+        System.out.println("Второе задание 2: \t" + translateSentence("I like to eat honey waffles."));
         System.out.println("Третье задание: \t" + validColor("rgba(255, 100, 0, 0)"));
         System.out.println("Четвёртое задание:\t" + stripUrlParams("http://127.0.0.1?a=1&b=2&a=2", new String[]{"b"}));
         System.out.println("Пятое задание:  \t" + Arrays.toString(getHashTags("How the Avocado Became the Fruit of the Global Trade")));
         System.out.println("Шестое задание: \t" + ulam(5));
         System.out.println("Седьмое задание:\t" + longestNonrepeatingSubstring("asfasasdf"));
         System.out.println("Восьмое задание:\t" + convertToRoman(99));
-        System.out.println("Девятое задание:\t" + formula("16 * 10 = 160 = 40 + 120")); //НЕ РАБОТАЕТ. У НАС РЕМОНТ.
+        System.out.println("Девятое задание:\t" + formula("(15 + 1) * 10 = 160"));
         System.out.println("Десятое задание:\t" + palindromeDescendant(11211230));
     }
 
@@ -176,20 +174,44 @@ public class Block_6 {
 
     /**
      * Задание 9.
-     *
-     * !!!!!!!!!!!!!!!!!!!
-     * !!! НЕ РАБОТАЕТ !!!
-     * !!!!!!!!!!!!!!!!!!!
-     *
      */
     public static boolean formula(String str) {
-        try {
-            ScriptEngine engine=new ScriptEngineManager().getEngineByName("JavaScript");
-            str = str.replaceAll("=(.+)=", " = $1 && $1 = ").replace("=","==").replace("a","4");
-            return Boolean.parseBoolean(engine.eval(str).toString());
-        } catch (Exception e) {return false;}
+        str = str.replaceAll(" ", "");
+        String equation = "";
+        for (int i = 0; i < str.length(); i++) {
+            if(str.substring(i, i+1).matches("[^\\+\\-\\*\\/\\=]"))
+                equation += String.valueOf(str.charAt(i));
+            else
+                equation += " " + str.charAt(i) + " ";
+        }
+        String[] parts = equation.split("=");
+        int solution = solve(parts[0]);
+        return Arrays.stream(parts).allMatch(s -> solve(s) == solution);
     }
 
+    public static int solve(String equation) {
+        equation = equation.replaceAll("\\(", "").replaceAll("\\)", "");
+        String[] allNum = equation.trim().split(" ");
+        if (allNum.length == 1) return Integer.parseInt(allNum[0]);
+        int result = Integer.parseInt(allNum[0]);
+        for (int i = 1; i < allNum.length; i += 2) {
+            switch(allNum[i]) {
+                case "*":
+                    result *= Integer.parseInt(allNum[i+1]);
+                    break;
+                case "+":
+                    result += Integer.parseInt(allNum[i+1]);
+                    break;
+                case "-":
+                    result -= Integer.parseInt(allNum[i+1]);
+                    break;
+                case "/":
+                    result /= Integer.parseInt(allNum[i+1]);
+                    break;
+            }
+        }
+        return result;
+    }
     /**
      * Задание 10.
      */
