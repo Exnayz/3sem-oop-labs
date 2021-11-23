@@ -14,8 +14,8 @@ public class Block_5 {
         System.out.println("Четвёртое задание:\t" + sumDigProd(16, 28));
         System.out.println("Пятое задание:  \t" + Arrays.toString(sameVowelGroup(new String[]{"toe", "ocelot", "maniac"})));
         System.out.println("Шестое задание: \t" + validateCard(1234567890123452L));
-        System.out.println("Седьмое задание 1:\t" + numToEng(958));
-        System.out.println("Седьмое задание 2:\t" + numToRus(958));
+        System.out.println("Седьмое задание 1:\t" + numToEng(120));
+        System.out.println("Седьмое задание 2:\t" + numToRus(120));
         System.out.println("Восьмое задание:\t" + getSha256Hash("password123"));
         System.out.println("Девятое задание:\t" + correctTitle("jOn SnoW, kINg IN thE noRth."));
         System.out.println("Десятое задание:\n" + hexLattice(7));

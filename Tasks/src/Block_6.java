@@ -14,7 +14,7 @@ public class Block_6 {
         System.out.println("Шестое задание: \t" + ulam(5));
         System.out.println("Седьмое задание:\t" + longestNonrepeatingSubstring("asfasasdf"));
         System.out.println("Восьмое задание:\t" + convertToRoman(99));
-        System.out.println("Девятое задание:\t" + formula("(15 + 1) * 10 = 160"));
+        System.out.println("Девятое задание:\t" + formula("5 + 7 = 12 = 3 *4"));
         System.out.println("Десятое задание:\t" + palindromeDescendant(11211230));
     }
 
@@ -100,7 +100,7 @@ public class Block_6 {
      */
     public static String[] getHashTags(String str) {
         return Arrays.stream(str.toLowerCase().replaceAll("\\p{Punct}", "").split(" "))
-                .sorted().limit(3).map(s -> "#" + s).toArray(String[]::new);
+                .sorted((s1, s2) -> s2.length() - s1.length()).limit(3).map(s -> "#" + s).toArray(String[]::new);
     }
 
     /**
@@ -212,6 +212,7 @@ public class Block_6 {
         }
         return result;
     }
+
     /**
      * Задание 10.
      */
