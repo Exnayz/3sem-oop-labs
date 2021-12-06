@@ -16,11 +16,18 @@ public class JImageDisplay extends JComponent {
         g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null);
     }
 
-    public void clearImage(){
-        image.setRGB(0,0, image.getWidth(), image.getHeight(), new int[image.getWidth()*image.getWidth()], 0, 1);
-    }
-
     public void drawPixel(int x, int y, int rgbColor) {
         image.setRGB(x, y, rgbColor);
     }
+
+    public void clearImage(){
+        int[] blankArray = new int[getWidth() * getHeight()];
+        image.setRGB(0, 0, getWidth(), getHeight(), blankArray, 0, 1);
+    }
+
+    // New
+    public BufferedImage getImage() {
+        return image;
+    }
+
 }
